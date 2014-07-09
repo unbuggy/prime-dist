@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# NAME
+#   bake - makefile generator generator
+#
+# SYNOPSYS
+#   bake
+#
+# DESCRIPTION
+#   This script generates a make(1) file for the `src` directory.  The real
+#   work is done by the find(1) utility -- which locates source files -- and
+#   by the `mkmk` program that analyzes intra-project dependencies and prints
+#   corresponding build rules.
+#
+# SEE ALSO
+#   * doc/cpp-init.md for step-by-step usage instructions
+#   * etc/mkmk.cpp for build configuration settings
+
+set -e  # Exit immediately on error.
+
+cd `git rev-parse --show-toplevel`
+make -s -f etc/mkmk.mk
+cd src
+../var/libexec/mkmk `find . -name '*.?pp'` > Makefile

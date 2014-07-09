@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# NAME
+#   profile - environment initialization script
+#
+# SYNOPSYS
+#   . etc/profile
+#
+# DESCRIPTION
+#   Source this script from the top level of repository working copy to
+#   initialize project-specific environment variables:
+#
+#   PATH        - prepended with the project `bin` directory
+#
+
+top="$(git rev-parse --show-toplevel)"
+export PATH="$top/bin:$PATH:$top/var/obj"
+hash -r
