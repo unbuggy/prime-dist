@@ -1,6 +1,6 @@
 # C++/Init
 
-C++/Init provides a starting point for new C++ projects.  The project includes a makefile generate called `bake`, a convenient template for small projects, a simple `profile` for configuring your shell, a `.gitignore` file, and a standard directory layout for consistency with other projects.
+C++/Init provides a starting point for new C++ projects.  The project includes a makefile generator called `bake`, a convenient template for small projects, a simple `profile` for configuring your shell, a `.gitignore` file, and a standard directory layout for consistency with other projects.
 
 To get started:
 
@@ -31,7 +31,7 @@ To get started:
 
         ../bin/bake
 
-   The makefile is obsoleted whenever you add or remove source files or local `#include` relationship.
+   The makefile is obsoleted whenever you add or remove source files or local `#include` relationships.
 
 7. Customize the cloned repository as you see fit.  For example, you might edit the makefile generator (`etc/mkmk.cpp)` to add a `test` target to generated makefiles.
 
@@ -39,7 +39,7 @@ To get started:
 
     git pull cpp-init master
 
-For convenience, you may source `etc/profile` to prepend the `bin` directory to your path (so that you can run `bake` easily, as well as any project-specific scripts you add), The profile also adds the build output directory to your path, so that you can run compiled programs right from the `src` directory.
+For convenience, you may source `etc/profile` to prepend the `bin` directory to your path (so that you can run `bake` easily, as well as any project-specific scripts you add).  The profile also adds the build output directory to your path, so that you can run compiled programs right from the `src` directory.
 
 There are a few limitations:
 
