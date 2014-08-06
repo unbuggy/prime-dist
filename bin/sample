@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# NAME
+#   sample - calls `main`, passing width and height according to terminal size
+#
+# SYNOPSYS
+#   sample <size>
+#
+# DESCRIPTION
+#   This script calls the `main` program (see `src/main.cpp`) to print a
+#   histogram of prime number distribution across ranges of a specified `size`.
+#   The script passes width and height parameters to `main` according to the
+#   current terminal size as determined by `tput(1)`.
+#
+# SEE ALSO
+#   * src/main.cpp for the `main` program definition
+
+if [ $# != 1 ]
+then
+    >&2 echo "usage: sample <size>"
+    exit 1
+fi
+
+main "$@" `tput cols` $((`tput lines` - 1))
