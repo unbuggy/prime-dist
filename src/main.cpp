@@ -66,7 +66,7 @@ int main(int argc, char** argv) try
     auto x = *std::max_element(buckets.begin(), buckets.end());
     for (std::size_t row = h; --row;) {
         for (std::size_t col = 0; col < w; ++col)
-            std::cout << (buckets[col] * h / x >= row ? '_' : ' ');
+            std::cout << (buckets[col] * h / x >= row ? 'o' : ' ');
         std::cout << '\n';
     }
 
