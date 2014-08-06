@@ -1,6 +1,6 @@
 # Prime Number Distribution
 
-This repository defines a small program to show the distribution of prime numbers across samples of specified sizes.  The output of each run is a simple ASCII histogram.  For example, at sample size 10, the height of the first column of output represents the relative density of prime numbers in the first ten integers (starting from 0), the second column corresponds to integers 10 through 19, etc.
+This repository provides a small program to show the distribution of prime numbers across samples of specified sizes.  The output of each run is a simple ASCII histogram.  For example, at sample size 10, the height of the first column of output represents the relative density of prime numbers in the first ten integers (starting from 0), the second column corresponds to integers 10 through 19, etc.
 
 What's fascinating about this visualization is that the shape of the histogram is nearly identical across sample sizes, simply becoming smoother as the size increases.
 
