@@ -13,7 +13,9 @@ void identify_primes(std::vector<bool>* result)
     } else {
         r.assign(n, true);
         r[0] = r[1] = false;
-        for (std::size_t i = 2, q = std::sqrt(n); i <= q; ++i) {
+        for (std::size_t i = 4; i < n; i += 2)
+            r[i] = false;
+        for (std::size_t i = 3, q = std::sqrt(n); i <= q; i += 2) {
             for (std::size_t j = i * 2; j < n; j += i)
                 r[j] = false;
         }
