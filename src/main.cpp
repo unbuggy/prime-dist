@@ -37,6 +37,7 @@ void fill_buckets(
     assert(filter.size() >= weight * result->size());
     auto& r = *result;
     auto  n = r.size();
+    r.assign(n, 0);
     for (std::size_t i = 0; i < n; ++i) {
         for (std::size_t j = i * weight, e = j + weight; j < e; ++j) {
             if (filter[j])
@@ -45,6 +46,21 @@ void fill_buckets(
     }
 
 }
+
+void show(
+        std::ostream&                   out,
+        std::vector<std::size_t> const& buckets,
+        std::size_t                     height)
+{
+    auto w = buckets.size();    // width; i.e., number of columns
+    if (auto x = *std::max_element(buckets.begin(), buckets.end())) {
+        for (std::size_t row = height; --row;) {
+            for (std::size_t col = 0; col < w; ++col)
+                out << (buckets[col] * height / x >= row ? 'o' : ' ');
+            out << '\n';
+        }
+    }
+};
 
 int main(int argc, char** argv) try
 {
@@ -65,13 +81,7 @@ int main(int argc, char** argv) try
     std::vector<std::size_t> buckets(w);
     fill_buckets(&buckets, prime, m);
 
-    if (auto x = *std::max_element(buckets.begin(), buckets.end())) {
-        for (std::size_t row = h; --row;) {
-            for (std::size_t col = 0; col < w; ++col)
-                std::cout << (buckets[col] * h / x >= row ? 'o' : ' ');
-            std::cout << '\n';
-        }
-    }
+    show(std::cout, buckets, h);
 
 } catch (char const* x) {
     std::clog << "Error: " << x << '\n';
