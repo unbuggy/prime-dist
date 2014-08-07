@@ -62,26 +62,58 @@ void show(
     }
 };
 
+void throw_usage()
+{
+    throw "usage; main [-s] <column-weight> <column-count> <row-count>";
+}
+
 int main(int argc, char** argv) try
 {
-    if (argc != 4)
-        throw "usage; main <column-weight> <column-count> <row-count>";
+    // First, parse command-line arguments.
 
-    std::size_t m = std::stol(argv[1]); // integers per column
-    std::size_t w = std::stol(argv[2]); // total output width
-    std::size_t h = std::stol(argv[3]); // total output height
+    if (argc != 4 && argc != 5)
+        throw_usage();
+
+    bool s = false;
+
+    if (argc == 5) {
+        if (strncmp(*++argv, "-s", 3))
+            throw_usage();
+        s = true;
+    }
+
+    std::size_t m = std::stol(*++argv); // integers per column
+    std::size_t w = std::stol(*++argv); // total output width
+    std::size_t h = std::stol(*++argv); // total output height
 
     if (m == 0) throw "The column weight must be positive.";
     if (w == 0) throw "The column count must be positive.";
     if (h == 0) throw "The row count must be positive.";
 
+    // Determine primeness of each number to be considered in the output.
+
     std::vector<bool> prime(m * w);
     identify_primes(&prime);
 
-    std::vector<std::size_t> buckets(w);
-    fill_buckets(&buckets, prime, m);
+    // If we are in *streaming* mode, process every weight from 1 through
+    // `m`, writing the results to separate files.
+    //
+    // Otherwise, just process weight `m` and write to standard output.
 
-    show(std::cout, buckets, h);
+    std::vector<std::size_t> buckets(w);
+
+    if (s) {
+        char fname[] = "hist/0000.hist";
+        for (std::size_t i = 1; i <= m; ++i) {
+            sprintf(fname, "hist/%04zd.hist", i);
+            std::ofstream out(fname);
+            fill_buckets(&buckets, prime, i);
+            show(out, buckets, h);
+        }
+    } else {
+        fill_buckets(&buckets, prime, m);
+        show(std::cout, buckets, h);
+    }
 
 } catch (char const* x) {
     std::clog << "Error: " << x << '\n';
