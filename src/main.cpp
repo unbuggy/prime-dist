@@ -103,9 +103,10 @@ int main(int argc, char** argv) try
     std::vector<std::size_t> buckets(w);
 
     if (s) {
-        char fname[] = "hist/0000.hist";
-        for (std::size_t i = 1; i <= m; ++i) {
-            sprintf(fname, "hist/%04zd.hist", i);
+        char fname[] = "hist/0000000.hist";
+        for (std::size_t d = 20, i = d; i <= m; i += d) {
+            // TODO: take width from log10(m), not hard-coded 7.
+            snprintf(fname, sizeof(fname), "hist/%0*zd.hist", 7, i);
             std::ofstream out(fname);
             fill_buckets(&buckets, prime, i);
             show(out, buckets, h);
