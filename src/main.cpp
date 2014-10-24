@@ -49,7 +49,7 @@ void fill_buckets(
 int main(int argc, char** argv) try
 {
     if (argc != 4)
-        throw "usage; main <column-weight> <column-count> <row-count>";
+        throw "usage: main <column-weight> <column-count> <row-count>";
 
     std::size_t m = std::stol(argv[1]); // integers per column
     std::size_t w = std::stol(argv[2]); // total output width
